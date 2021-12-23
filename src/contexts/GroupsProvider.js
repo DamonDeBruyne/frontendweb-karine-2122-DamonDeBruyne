@@ -16,7 +16,7 @@ export const GroupsProvider=({
   children
 })=>{
 
-  const [currentGroup, setCurrentGroup] = useState({});
+    const [currentGroup, setCurrentGroup] = useState({});
     const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
     const [groups, setGroups] = useState([]);

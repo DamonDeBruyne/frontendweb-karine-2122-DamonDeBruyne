@@ -1,10 +1,13 @@
 
 import './App.css';
 import {Switch, Route} from 'react-router-dom';
+import { Redirect } from 'react-router/cjs/react-router.min';
 
 import HomePage from './pages/HomePage';
-import { Redirect } from 'react-router/cjs/react-router.min';
-//import PostPage from './pages/PostPage';
+import GroupForm from './pages/GroupForm';
+import PostForm from './pages/PostForm';
+import PostPage from './pages/PostPage';
+
 import { GroupsProvider } from './contexts/GroupsProvider';
 import { PostsProvider } from './contexts/PostsProvider';
 
@@ -20,9 +23,21 @@ function App() {
         <Route path="/groups" exact>
           <HomePage/>
          </Route>
-        {/* <Route path="/posts" exact>
+         <Route path="/groups/add" exact>
+          <GroupForm/>
+         </Route>
+         <Route path="/groups/edit/:id" exact>
+          <GroupForm/>
+         </Route>
+         <Route path="/posts" exact>
           <PostPage/>
-        </Route> */}
+          </Route>
+         <Route path="/posts/add" exact>
+          <PostForm/>
+          </Route>
+         <Route path="/posts/edit/:id" exact>
+          <PostForm/>
+        </Route> 
       </Switch>
       </PostsProvider>
     </GroupsProvider>

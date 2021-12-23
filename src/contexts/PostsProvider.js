@@ -21,7 +21,7 @@ export const PostsProvider=({
     const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
     const [posts, setPosts] = useState([]);
-    const groupsId = GroupsProvider.currentGroup.id;
+    const group = GroupsProvider.currentGroup;
 
     const refreshPosts =useCallback(async () =>{
      
@@ -30,7 +30,7 @@ export const PostsProvider=({
         setLoading(true);
         const{
           data
-        } = await axios.get(`${config.base_url}posts?groupId=${groupsId}`);
+        } = await axios.get(`${config.base_url}posts?groupId=${group.id}`);
         setPosts(data.data);
         return data.data;
       }catch(error){
@@ -38,7 +38,7 @@ export const PostsProvider=({
       }finally{
         setLoading(false);
       }
-    },[groupsId]);
+    },[group]);
 
     useEffect(()=>{
       if(posts?.length === 0) {
