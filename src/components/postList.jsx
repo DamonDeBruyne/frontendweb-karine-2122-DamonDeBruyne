@@ -1,5 +1,6 @@
-import { POST_DATA } from "../mock-data";
-import React from "react";
+
+import React, { useContext } from "react";
+import { PostsContext } from "../contexts/PostsProvider";
 
 const Post = ({ id, user, description,postDate,...rest }) => {
   return (
@@ -10,7 +11,7 @@ const Post = ({ id, user, description,postDate,...rest }) => {
   );
 };
 export default React.memo(function PostList(id) {
-  const posts=POST_DATA.filter(groupId=>groupId===id);
+  const {posts}=useContext(PostsContext);
    
   return (
     <div>
