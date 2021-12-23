@@ -1,9 +1,13 @@
-const Group = ({ id, name, image }) => {
+
+
+const Group = ({ id, name }) => {
   return (
-    <div>
-      <h2> {name}</h2>
-      <image src={image} alt={image}></image>
-    </div>
+    <link to="/posts" key={id}>
+      <div>
+        <h2> {name}</h2>
+      </div>
+    </link>
+    
   );
 };
 
@@ -14,9 +18,9 @@ export default function Groups({ groups }) {
         .sort((a, b) =>
           a.name.toLowerCase().localeCompare(b.name.toLowerCase())
         )
-        .map((p, i) => (
-          <Group key={i} {...p} />
+        .map((group,id) => (
+          <Group {...group} key={id}/>
         ))}
     </div>
   );
-}
+};

@@ -1,21 +1,32 @@
-import { useState } from 'react';
-import './App.css';
-import Groups from './components/groups';
-import { GROUPS_DATA } from './mock-data';
 
+import './App.css';
+import {Switch, Route} from 'react-router-dom';
+
+import HomePage from './pages/HomePage';
+import { Redirect } from 'react-router/cjs/react-router.min';
+//import PostPage from './pages/PostPage';
+import { GroupsProvider } from './contexts/GroupsProvider';
+import { PostsProvider } from './contexts/PostsProvider';
 
 
 function App() {
-  const [groups,setGroups] = useState(GROUPS_DATA);
- 
-
-
   return (
-    <div className='GroupList'>
-      <h1>Social media app</h1>
-      <Groups groups={groups}/>
-      <button type='button' onclick> Create new Group</button>
-    </div>
+    <GroupsProvider>
+      <PostsProvider>
+      <Switch>
+        <Route path="/" exact>
+          <Redirect to="/groups" />
+        </Route>
+        <Route path="/groups" exact>
+          <HomePage/>
+         </Route>
+        {/* <Route path="/posts" exact>
+          <PostPage/>
+        </Route> */}
+      </Switch>
+      </PostsProvider>
+    </GroupsProvider>
+   
   );
 }
 
