@@ -1,4 +1,4 @@
-const GROUPS_DATA = [
+const GROUP_DATA = [
   { id: '7f28c5f9-d711-4cd6-ac15-d13d71abff86',name: 'groep 1'},
   { id: '7f28c5f9-d711-4cd6-ac15-d13d71abff87',name: 'groep 2'},
   { id: '7f28c5f9-d711-4cd6-ac15-d13d71abff88',name: 'groep 3'},
@@ -44,4 +44,4 @@ const USER_DATA=[
     roles: JSON.stringify(["USER"]),
   },
 ]
-export {GROUPS_DATA,POST_DATA,USER_DATA};
+export {GROUP_DATA,POST_DATA,USER_DATA};

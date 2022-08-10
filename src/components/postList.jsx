@@ -1,24 +1,30 @@
+import React from "react";
+import { USER_DATA } from "../mock-data";
 
-import React, { useContext } from "react";
-import { PostsContext } from "../contexts/PostsProvider";
-
-const Post = ({ id, user, description,postDate,...rest }) => {
+const Post = ({  user_id,description,post_date }) => {
+  const user = USER_DATA.find(user => user.id===user_id);
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric',minute:'numeric' };
   return (
-    <div>
-      <p>{user.name}     {new Date(postDate).toLocaleDateString('nl-BE', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>
-      <p>{description}</p>
-    </div>
+      <div class='border'>
+        <table>
+          <tr>
+            <td>{user.name}</td>
+            <td>{post_date.toLocaleDateString(undefined,options)}</td>
+          </tr>
+          <tr aria-rowspan={2}>{description}</tr>
+        </table>
+      </div>
   );
 };
-export default React.memo(function PostList(id) {
-  const {posts}=useContext(PostsContext);
-   
+
+export default function PostList({posts}) {
+
   return (
-    <div>
-      {posts
-        .map((post,id) => (
-          <Post {...post} key={id} />
-        ))}
-    </div>
+      <div class='border'>
+        <h1>Posts</h1>
+        {posts.map((post) => (
+            <Post {...post}/>
+          ))}
+      </div>
   );
-});
+};
