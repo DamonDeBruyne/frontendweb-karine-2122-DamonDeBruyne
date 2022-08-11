@@ -49,9 +49,13 @@ export default function GroupsList( ) {
     <div class='border'>
       <h1>Groups</h1>
       <div>
-        {groups.map((group) => (
-            <Group {...group} onSelect={()=>setSelectedGroup(group.id)}/>
-          ))}
+        {groups
+            .sort((a, b) =>
+            a.name.toUpperCase().localeCompare(b.name.toUpperCase())
+          )
+            .map((group) => (
+              <Group {...group} onSelect={()=>setSelectedGroup(group.id)}/>
+            ))}
         <AddGroupForm onSaveGroup={createGroup}/>  
       </div>
       <div class = 'border'>
