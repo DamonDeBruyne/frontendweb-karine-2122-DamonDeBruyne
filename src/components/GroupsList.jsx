@@ -27,7 +27,7 @@ export default function GroupsList( ) {
         id,
         name
       },...groups];
-      console.log(newGroup);
+      console.log(JSON.stringify(newGroup));
     setGroups(newGroup);
   }
 
@@ -42,7 +42,7 @@ export default function GroupsList( ) {
       description,
       post_date
     },...posts];
-    console.log(newPost)
+    console.log(JSON.stringify(newPost))
     setPosts(newPost);
   }
 
