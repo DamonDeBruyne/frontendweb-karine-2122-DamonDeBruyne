@@ -1,5 +1,5 @@
 import React from "react";
-import { USER_DATA } from "../mock-data";
+import { POST_DATA, USER_DATA } from "../mock-data";
 
 const Post = ({ user_id, description, post_date }) => {
   const user = USER_DATA.find((user) => user.id === user_id);
@@ -24,7 +24,8 @@ const Post = ({ user_id, description, post_date }) => {
   );
 };
 
-export default function PostList({ posts }) {
+export default function PostList({ groupsId }) {
+  const posts = POST_DATA.filter(post=>post.group_id===groupsId);
   return (
     <div class="border">
       <h1>Posts</h1>

@@ -6,18 +6,19 @@ import AddPostForm from "./AddPostForm";
 import PostList from "./PostList";
 
 
-const Group = ({ name,onSelect }) => {
+const Group = ({ name, onSelect }) => {
   return (
-      <div>
-        <h2 onClick={onSelect}> {name}</h2>
+      <div class="cursor-pointer">
+        <h2  onClick={onSelect}> {name}</h2>
       </div>
   );
 };
 
 export default function GroupsList( ) {
-  const [selectedGroup,setSelectedGroup] = useState(GROUP_DATA[0].id)
   const [groups,setGroups]=useState(GROUP_DATA);
-  const [posts, setPosts] = useState(POST_DATA.filter(post=>post.group_id===selectedGroup));
+  const [posts, setPosts] = useState(POST_DATA);
+  const [selectedGroup,setSelectedGroup] = useState(groups[0].id)
+  
 
   const createGroup =(name)=>{
     const id='1';
@@ -30,14 +31,14 @@ export default function GroupsList( ) {
     setGroups(newGroup);
   }
 
-  const createPost=(user_id,description,group_id)=>{
+  const createPost=(user_id,description)=>{
     const post_date = new Date();
     const id='1';
     const newPost =[
       {
       id,
       user_id,
-      group_id,
+      group_id:selectedGroup,
       description,
       post_date
     },...posts];
@@ -59,7 +60,7 @@ export default function GroupsList( ) {
         <AddGroupForm onSaveGroup={createGroup}/>  
       </div>
       <div class = 'border'>
-        <PostList posts={posts}/>
+        <PostList groupsId={selectedGroup}/>
         <AddPostForm groupsId={selectedGroup} onSavePost={createPost}/>
       </div>
     </div>
