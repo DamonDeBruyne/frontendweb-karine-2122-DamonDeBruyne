@@ -9,12 +9,14 @@ import GroupPage from './pages/GroupPage';
 import PostPage from './pages/PostPage'
 import Login from './pages/Login';
 import { PostsProvider } from './contexts/PostsProvider';
+import NavMenu from './components/NavMenu';
 
 function App() {
   return (
     <AuthProvider>
       <PostsProvider>
         <GroupsProvider>
+            <NavMenu/>
           <Switch>
 
             <Route path='/' exact>
@@ -34,6 +36,7 @@ function App() {
             </Route>
 
           </Switch>
+
         </GroupsProvider>
       </PostsProvider>
     </AuthProvider> 
