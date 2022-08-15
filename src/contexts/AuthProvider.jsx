@@ -127,6 +127,7 @@ export const AuthProvider = ({
     return user.roles.includes(role);
   }, [user]);
 
+
   const value = useMemo(() => ({
     token,
     user,

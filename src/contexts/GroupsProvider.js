@@ -15,19 +15,19 @@ export const useGroups =()=>useContext(GroupsContext);
 export const GroupsProvider=({
   children
 })=>{
-  const { ready: authReady } = useSession();
+    const { ready: authReady } = useSession();
+    const [groups, setGroups] = useState([]);
     const [currentGroup, setCurrentGroup] = useState({});
     const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
-    const [groups, setGroups] = useState([]);
+    const [initialLoad, setInitialLoad] = useState(false);
 
     const refreshGroups =useCallback(async () =>{
       try{
         setError();
         setLoading(true);
        const data = await groupsApi.getAllGroups();
-        setGroups(data.data);
-        return data.data;
+        setGroups(data);
       }catch(error){
         setError(error);
       }finally{
@@ -36,10 +36,11 @@ export const GroupsProvider=({
     },[]);
 
     useEffect(()=>{
-      if(authReady &&groups?.length === 0) {
+      if(authReady &&!initialLoad) {
         refreshGroups();
+        setInitialLoad(true);
       }
-    },[authReady ,refreshGroups,groups]);
+    },[authReady ,refreshGroups,initialLoad]);
 
     const createOrUpdateGroup = useCallback(async ({
       id,
@@ -49,7 +50,6 @@ export const GroupsProvider=({
       setLoading(true);
       try {
         const changedGroup = await groupsApi.saveGroup({
-          id,
           name
         });
         await refreshGroups();

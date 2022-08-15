@@ -25,7 +25,7 @@ function App() {
               <GroupPage/>
             </PrivateRoute>
 
-            <PrivateRoute path="/posts" exact>
+            <PrivateRoute path="/posts/:groupsId" exact>
               <PostPage/>
             </PrivateRoute>
 

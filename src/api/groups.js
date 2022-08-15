@@ -1,7 +1,7 @@
 import { axios } from '.'; 
 
 export const getAllGroups= async()=>{
-  const {data}=await axios.get(`groups`);
+  const { data }=await axios.get('groups');
   return data;
 };
 

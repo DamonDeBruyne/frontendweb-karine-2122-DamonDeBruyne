@@ -27,8 +27,7 @@ export const PostsProvider=({
         setError();
         setLoading(true);
         const data = await postsApi.getAllPosts();
-        setPosts(data.data);
-        return data.data;
+        setPosts(data);
       }catch(error){
         setError(error);
       }finally{

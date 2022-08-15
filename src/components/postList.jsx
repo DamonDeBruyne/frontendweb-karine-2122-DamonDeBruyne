@@ -1,10 +1,8 @@
-import {React,useContext} from "react";
-import { USER_DATA } from "../mock-data";
-import { PostsContext } from "../contexts/PostsProvider";
+import {React,useMemo} from "react";
+import {  usePosts } from "../contexts/PostsProvider";
 
 
-const Post = ({ user_id, description, post_date }) => {
-  const user = USER_DATA.find((user) => user.id === user_id);
+const Post = ({ user_name,description, post_date }) => {
   const options = {
     weekday: "long",
     year: "numeric",
@@ -14,11 +12,12 @@ const Post = ({ user_id, description, post_date }) => {
     minute: "numeric",
   };
   return (
-    <div class="border">
+    <div className="border">
       <table>
         <tr>
-          <td>{user.name}</td>
-          <td>{post_date.toLocaleDateString(undefined, options)}</td>
+          <td>{user_name}</td>
+          {/* <td>{post_date.toLocaleDateString(undefined, options)}</td> */}
+          <td>{post_date}</td>
         </tr>
         <tr aria-rowspan={2}>{description}</tr>
       </table>
@@ -26,17 +25,23 @@ const Post = ({ user_id, description, post_date }) => {
   );
 };
 
-export default function PostList({ groupsId }) {
-  const {loading, posts,error} = useContext(PostsContext);
+export default function PostList({groupsId}) {
+  const {loading, posts,error} = usePosts();
+  console.log(posts);
+  
+  const filteredPosts = useMemo(() => {
+    return posts.filter((post) => {
+      return post.group_id===groupsId;
+    });
+  }, [posts, groupsId]);
+  console.log(filteredPosts);
 
   if (loading) return <h1>Loading...</h1>;
   if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>
-  if (!posts) return null;
+  if (!posts) return <span className="flex-1">There are no posts </span>;
   return (
-    <div class="border">
-      <h1>Posts</h1>
-      {posts
-        .filter(post=>post.group_id===groupsId)
+    <div className="border">
+      {filteredPosts
         .sort((a, b) =>
           a.post_date - b.post_date
         )

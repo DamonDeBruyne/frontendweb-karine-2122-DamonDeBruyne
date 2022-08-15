@@ -1,29 +1,35 @@
 
-import {React,useContext} from "react";
+import {React} from "react";
 import { AiOutlineDelete } from "react-icons/ai";
-import { GroupsContext } from "../contexts/GroupsProvider";
+import { useGroups } from "../contexts/GroupsProvider";
 import { Link } from "react-router-dom";
+import { useSession } from "../contexts/AuthProvider";
+
 
 const Group = ({ id,name,remove }) => {
+  const { hasRole } = useSession();
   return (
       <div class="cursor-pointer">
-        <Link to='/posts' {...id} > {name}</Link>
-        {/* toevoegen deleteGroup als je admin bent */}
+        <Link to={`posts/${id}`}> {name}</Link>
+        {hasRole('admin')?
         <AiOutlineDelete onClick={remove}/>
+        :""}  
       </div>
   );
 };
 
 export default function GroupsList( ) {
-  const {loading,error,deleteGroup,groups} = useContext(GroupsContext);
+  const {groups,loading,error,deleteGroup} = useGroups();
+  
+  
+  
 
   if (loading) return <h1>Loading...</h1>;
   if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>
-  if (!groups) return <h1>No Groups</h1>;
+  if (!groups) return <span className="flex-1">There are no groups</span>;
 
   return (
-    <div class='border'>
-      <h1>Groups</h1>
+    <div className='border'>
       <div>
         {groups
             .sort((a, b) =>
