@@ -1,35 +1,29 @@
 
-import {React,useState} from "react";
-import { GROUP_DATA,POST_DATA } from "../mock-data";
+import {React,useContext,useState} from "react";
+import { POST_DATA } from "../mock-data";
 import AddGroupForm from "./AddGroupForm";
 import AddPostForm from "./AddPostForm";
 import PostList from "./PostList";
+import { AiOutlineDelete } from "react-icons/ai";
+import { GroupsContext } from "../contexts/GroupsProvider";
 
 
-const Group = ({ name, onSelect }) => {
+
+const Group = ({ name, onSelect,remove }) => {
   return (
       <div class="cursor-pointer">
         <h2  onClick={onSelect}> {name}</h2>
+        {/* toevoegen deleteGroup */}
+        <AiOutlineDelete onClick={remove}/>
       </div>
   );
 };
 
 export default function GroupsList( ) {
-  const [groups,setGroups]=useState(GROUP_DATA);
+  const {loading, groups,error,deleteGroup} = useContext(GroupsContext);
   const [posts, setPosts] = useState(POST_DATA);
-  const [selectedGroup,setSelectedGroup] = useState(groups[0].id)
-  
+  const [selectedGroup,setSelectedGroup] = useState('');
 
-  const createGroup =(name)=>{
-    const id='1';
-    const newGroup=[
-      {
-        id,
-        name
-      },...groups];
-      console.log(JSON.stringify(newGroup));
-    setGroups(newGroup);
-  }
 
   const createPost=(user_id,description)=>{
     const post_date = new Date();
@@ -46,6 +40,11 @@ export default function GroupsList( ) {
     setPosts(newPost);
   }
 
+
+  if (loading) return <h1>Loading...</h1>;
+  if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>
+  if (!groups) return null;
+
   return (
     <div class='border'>
       <h1>Groups</h1>
@@ -55,9 +54,11 @@ export default function GroupsList( ) {
             a.name.toUpperCase().localeCompare(b.name.toUpperCase())
           )
             .map((group) => (
-              <Group {...group} onSelect={()=>setSelectedGroup(group.id)}/>
+              <Group {...group} 
+              onSelect={()=>setSelectedGroup(group.id)}
+              remove={()=>deleteGroup(group.id)}/>
             ))}
-        <AddGroupForm onSaveGroup={createGroup}/>  
+        <AddGroupForm/>  
       </div>
       <div class = 'border'>
         <PostList groupsId={selectedGroup}/>

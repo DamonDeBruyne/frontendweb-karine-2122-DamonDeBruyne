@@ -1,4 +1,5 @@
 import {
+  useSession,
   createContext,
   useState,
   useEffect,
@@ -6,8 +7,8 @@ import {
   useContext,
   useMemo
 } from 'react';
-import axios from 'axios';
-import config from '../config.json';
+import * as groupsApi from '../api/groups';
+
 
 export const GroupsContext = createContext();
 export const useGroups =()=>useContext(GroupsContext);
@@ -15,7 +16,7 @@ export const useGroups =()=>useContext(GroupsContext);
 export const GroupsProvider=({
   children
 })=>{
-
+  const { ready: authReady } = useSession();
     const [currentGroup, setCurrentGroup] = useState({});
     const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
@@ -25,9 +26,7 @@ export const GroupsProvider=({
       try{
         setError();
         setLoading(true);
-        const{
-          data
-        } = await axios.get(`${config.base_url}groups`);
+       const data = await groupsApi.getAllGroups();
         setGroups(data.data);
         return data.data;
       }catch(error){
@@ -38,10 +37,10 @@ export const GroupsProvider=({
     },[]);
 
     useEffect(()=>{
-      if(groups?.length === 0) {
+      if(authReady &&groups?.length === 0) {
         refreshGroups();
       }
-    },[refreshGroups,groups]);
+    },[authReady ,refreshGroups,groups]);
 
     const createOrUpdateGroup = useCallback(async ({
       id,
@@ -49,18 +48,10 @@ export const GroupsProvider=({
     }) => {
       setError();
       setLoading(true);
-      let data = {
-        name,
-      };
-      let method = id ? 'put' : 'post';
-      let url = `${config.base_url}groups/${id ?? ''}`;
       try {
-        const {
-          changedGroup
-        } = await axios({
-          method,
-          url,
-          data,
+        const changedGroup = await groupsApi.saveGroup({
+          id,
+          name
         });
         await refreshGroups();
         return changedGroup;
@@ -76,14 +67,8 @@ export const GroupsProvider=({
       setLoading(true);
       setError();
       try {
-        const {
-          data
-        } = await axios({
-          method: 'delete',
-          url: `${config.base_url}groups/${id}`,
-        });
+       await groupsApi.deleteGroup(id);
         refreshGroups();
-        return data;
       } catch (error) {
         console.error(error);
         throw error;

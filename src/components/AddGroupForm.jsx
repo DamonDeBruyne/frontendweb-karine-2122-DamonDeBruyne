@@ -1,13 +1,16 @@
 
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { GroupsContext } from "../contexts/GroupsProvider";
 
-export default function AddGroupForm( {onSaveGroup = (f)=>f }){
+export default function AddGroupForm( ){
   const {register,handleSubmit,formState:{errors},reset} = useForm();
+  const { createOrUpdateGroup } = useContext(GroupsContext);
   
   const onSubmit=(data)=>{
     console.log(JSON.stringify(data));
     const {name}=data;
-    onSaveGroup(name);
+    createOrUpdateGroup({name});
     reset();
   }
 

@@ -1,14 +1,19 @@
 
 import './App.css';
-import GroupsList from './components/GroupsList';
+import { AuthProvider } from './contexts/AuthProvider';
+import { GroupsProvider } from './contexts/GroupsProvider';
+import {PostsProvider} from './contexts/PostsProvider';
 
 function App() {
   return (
-    <>
-      <div class='border'>
-        <GroupsList/>
-      </div>
-    </>
+    <AuthProvider>
+    <GroupsProvider>
+      <PostsProvider>
+
+      </PostsProvider>
+    </GroupsProvider>
+    </AuthProvider>
+    
   );
 }
 

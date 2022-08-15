@@ -6,9 +6,8 @@ import {
   useContext,
   useMemo
 } from 'react';
-import axios from 'axios';
-import config from '../config.json';
-import { GroupsProvider } from './GroupsProvider';
+import * as postsApi from "../api/posts";
+import useSession from './AuthProvider';
 
 export const PostsContext = createContext();
 export const useGroups =()=>useContext(PostsContext);
@@ -16,21 +15,18 @@ export const useGroups =()=>useContext(PostsContext);
 export const PostsProvider=({
   children
 })=>{
-
+  const { ready: authReady } = useSession();
   const [currentPost, setCurrentPost] = useState({});
     const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
     const [posts, setPosts] = useState([]);
-    const group = GroupsProvider.currentGroup;
 
-    const refreshPosts =useCallback(async () =>{
+    const refreshPosts =useCallback(async (groupsId) =>{
      
       try{
         setError();
         setLoading(true);
-        const{
-          data
-        } = await axios.get(`${config.base_url}posts?groupId=${group.id}`);
+        const data = await postsApi.getAllPostsByGroupId(groupsId);
         setPosts(data.data);
         return data.data;
       }catch(error){
@@ -38,45 +34,31 @@ export const PostsProvider=({
       }finally{
         setLoading(false);
       }
-    },[group]);
+    },[]);
 
     useEffect(()=>{
-      if(posts?.length === 0) {
+      if(authReady && posts?.length === 0) {
         refreshPosts();
       }
-    },[refreshPosts,posts]);
+    },[authReady,refreshPosts,posts]);
 
     const createOrUpdatePost = useCallback(async ({
       id,
+      user_id,
       description,
       group_id
     }) => {
       setError();
       setLoading(true);
-      let data;
-      let method = id ? 'put' : 'post';
-      if (method ==='post') {
-         data = {
+      try {
+        const changedPost = await postsApi.savePost({
+          id,
+          user_id,
           description,
           group_id
-        };
-      } else {
-        data={
-          description
-        };
-      }
-
-      let url = `${config.base_url}posts/${id ?? ''}`;
-      try {
-        const {
-          changedpost
-        } = await axios({
-          method,
-          url,
-          data,
-        });
+        })
         await refreshPosts();
-        return changedpost;
+        return changedPost;
       } catch (error) {
         console.error(error);
         throw error;
@@ -89,14 +71,8 @@ export const PostsProvider=({
       setLoading(true);
       setError();
       try {
-        const {
-          data
-        } = await axios({
-          method: 'delete',
-          url: `${config.base_url}posts/${id}`,
-        });
+        await postsApi.deletePost(id);
         refreshPosts();
-        return data;
       } catch (error) {
         console.error(error);
         throw error;
