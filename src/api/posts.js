@@ -1,7 +1,8 @@
 import { axios } from '.';
 
-export const getAllPostsByGroupId= async(groupsId)=>{
-  const {data}=await axios.get(`posts/${groupsId ?? ''}`);
+
+export const getAllPosts= async()=>{
+  const {data}=await axios.get(`posts`);
   return data;
 };
 

@@ -5,6 +5,8 @@ export default function PrivateRoute({ children, ...rest }) {
 	const { isAuthed } = useSession();
 	const { pathname } = useLocation();
 	
+
+
 	return (
 		<Route {...rest}>
 			{

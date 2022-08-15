@@ -7,19 +7,19 @@ import { Link } from "react-router-dom";
 const Group = ({ id,name,remove }) => {
   return (
       <div class="cursor-pointer">
-        <Link to='/posts' params={{id:id}}> {name}</Link>
-        {/* toevoegen deleteGroup */}
+        <Link to='/posts' {...id} > {name}</Link>
+        {/* toevoegen deleteGroup als je admin bent */}
         <AiOutlineDelete onClick={remove}/>
       </div>
   );
 };
 
 export default function GroupsList( ) {
-  const {loading, groups,error,deleteGroup} = useContext(GroupsContext);
+  const {loading,error,deleteGroup,groups} = useContext(GroupsContext);
 
   if (loading) return <h1>Loading...</h1>;
   if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>
-  if (!groups) return null;
+  if (!groups) return <h1>No Groups</h1>;
 
   return (
     <div class='border'>

@@ -21,12 +21,12 @@ export const PostsProvider=({
     const [loading, setLoading] = useState(false);
     const [posts, setPosts] = useState([]);
 
-    const refreshPosts =useCallback(async (groupsId) =>{
+    const refreshPosts =useCallback(async () =>{
      
       try{
         setError();
         setLoading(true);
-        const data = await postsApi.getAllPostsByGroupId(groupsId);
+        const data = await postsApi.getAllPosts();
         setPosts(data.data);
         return data.data;
       }catch(error){

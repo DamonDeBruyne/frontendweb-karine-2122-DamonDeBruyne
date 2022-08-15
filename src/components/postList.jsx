@@ -1,5 +1,7 @@
-import React from "react";
-import { POST_DATA, USER_DATA } from "../mock-data";
+import {React,useContext} from "react";
+import { USER_DATA } from "../mock-data";
+import { PostsContext } from "../contexts/PostsProvider";
+
 
 const Post = ({ user_id, description, post_date }) => {
   const user = USER_DATA.find((user) => user.id === user_id);
@@ -25,11 +27,16 @@ const Post = ({ user_id, description, post_date }) => {
 };
 
 export default function PostList({ groupsId }) {
-  const posts = POST_DATA.filter(post=>post.group_id===groupsId);
+  const {loading, posts,error} = useContext(PostsContext);
+
+  if (loading) return <h1>Loading...</h1>;
+  if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>
+  if (!posts) return null;
   return (
     <div class="border">
       <h1>Posts</h1>
       {posts
+        .filter(post=>post.group_id===groupsId)
         .sort((a, b) =>
           a.post_date - b.post_date
         )
