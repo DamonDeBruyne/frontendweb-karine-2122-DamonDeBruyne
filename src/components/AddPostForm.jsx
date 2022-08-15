@@ -9,25 +9,14 @@ export default function AddPostForm( {groups_id}){
 
   const onSubmit=(data)=>{
     console.log(JSON.stringify(data));
-    const {name,description,groups_id}=data;
-    createOrUpdatePost(name,description,groups_id);
+    const {description}=data;
+    createOrUpdatePost(description,groups_id);
     reset();
   }
 
   return(
     <form onSubmit={handleSubmit(onSubmit)} className='m-5'>
     <div className='grid grid-cols-6 gap-6'>
-      {/* mag weg  */}
-      <div className='col-span-6 sm:col-span-3'>
-        <label htmlFor='user'>user</label>
-        <input  
-        type='text' 
-        placeholder='name' 
-        id='user' 
-        {...register('name',
-        {required:'name is required'})} />
-         {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-      </div>
       <div className='col-span-6 sm:col-span-3'>
         <label htmlFor='description'>Text</label>
         <textarea 

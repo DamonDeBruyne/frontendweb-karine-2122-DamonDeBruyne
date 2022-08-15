@@ -43,7 +43,6 @@ export const PostsProvider=({
 
     const createOrUpdatePost = useCallback(async ({
       id,
-      user_id,
       description,
       group_id
     }) => {
@@ -51,8 +50,6 @@ export const PostsProvider=({
       setLoading(true);
       try {
         const changedPost = await postsApi.savePost({
-          id,
-          user_id,
           description,
           group_id
         })
