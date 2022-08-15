@@ -2,7 +2,15 @@ import { useCallback,useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useLogin,useSession } from '../contexts/AuthProvider';
 import { useHistory } from 'react-router';
-
+import LabelInput from '../components/LabelInput';
+const validationRules = {
+	email: {
+		required: true
+	},
+	password: {
+		required: true
+	}
+};
 
 export default function Login() {
 	const history = useHistory();
@@ -36,7 +44,7 @@ export default function Login() {
 		<FormProvider {...methods}>
 			<div className="mx-auto w-1/4">
 				<h1>Sign in</h1>
-				<form className="grid grid-cols-1 gap-y-4" onSubmit={handleSubmit(handleLogin)} >
+				<form className="grid grid-cols-1 gap-y-4" onSubmit={handleSubmit(handleLogin)}>
 				{
 						error ? (
 							<p className="text-red-500">
@@ -44,20 +52,18 @@ export default function Login() {
 							</p>
 						) : null
 					}
-				 <label htmlFor='email'>Email</label>
-				 <input 
-          type='text' 
-          placeholder='your@email.com' 
-          id='email'
-					defaultValue=""
-					required />
+					<LabelInput
+						label="email"
+						type="text"
+						defaultValue=""
+						placeholder="your@email.com"
+						validation={validationRules.email} />
 
-				 <label htmlFor='password'>Password</label>
-				 <input 
-          type='password' 
-          id='password'
-					defaultValue=""
-					required />
+					<LabelInput
+						label="password"
+						type="password"
+						defaultValue=""
+						validation={validationRules.password} />
 
 					<div className="flex flex-row justify-end">
 						<button type="submit" disabled={loading} className="disabled:opacity-50">

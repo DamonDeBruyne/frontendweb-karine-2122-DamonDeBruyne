@@ -1,5 +1,4 @@
 import {
-  useSession,
   createContext,
   useState,
   useEffect,
@@ -8,7 +7,7 @@ import {
   useMemo
 } from 'react';
 import * as groupsApi from '../api/groups';
-
+import { useSession } from './AuthProvider';
 
 export const GroupsContext = createContext();
 export const useGroups =()=>useContext(GroupsContext);

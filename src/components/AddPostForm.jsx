@@ -1,19 +1,23 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
+import {PostsContext} from '../contexts/PostsProvider';
 
 
-export default function AddPostForm( {groups_id,onSavePost = (f)=>f }){
+export default function AddPostForm( {groups_id}){
   const {register,handleSubmit,formState:{errors},reset} = useForm();
+  const {createOrUpdatePost} = useContext(PostsContext);
 
   const onSubmit=(data)=>{
     console.log(JSON.stringify(data));
     const {name,description,groups_id}=data;
-    onSavePost(name,description,groups_id);
+    createOrUpdatePost(name,description,groups_id);
     reset();
   }
 
   return(
     <form onSubmit={handleSubmit(onSubmit)} className='m-5'>
     <div className='grid grid-cols-6 gap-6'>
+      {/* mag weg  */}
       <div className='col-span-6 sm:col-span-3'>
         <label htmlFor='user'>user</label>
         <input  

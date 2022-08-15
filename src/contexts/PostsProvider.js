@@ -7,10 +7,10 @@ import {
   useMemo
 } from 'react';
 import * as postsApi from "../api/posts";
-import useSession from './AuthProvider';
+import { useSession } from './AuthProvider';
 
 export const PostsContext = createContext();
-export const useGroups =()=>useContext(PostsContext);
+export const usePosts =()=>useContext(PostsContext);
 
 export const PostsProvider=({
   children

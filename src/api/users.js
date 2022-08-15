@@ -1,6 +1,8 @@
 import { axios } from '.';
 
 export const login = async (email, password) => {
+	console.log(email);
+	console.log(password);
 	const {
 		data
 	} = await axios.post(`users/login`, {
