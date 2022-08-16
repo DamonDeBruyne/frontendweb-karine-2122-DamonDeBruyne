@@ -10,6 +10,7 @@ export const savePost=async({
       id,
       groups_id,
       description,
+      user_id
 })=>{
   const { data } = await axios({
 		method: id ? 'put' : 'post',
@@ -17,6 +18,7 @@ export const savePost=async({
 		data: {
       groups_id,
       description,
+      user_id
 		},
 	});
 	return data;

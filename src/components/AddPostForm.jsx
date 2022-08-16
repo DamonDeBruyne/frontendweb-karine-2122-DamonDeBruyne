@@ -1,16 +1,21 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { useSession } from "../contexts/AuthProvider";
 import {PostsContext} from '../contexts/PostsProvider';
 
 
 export default function AddPostForm( {groups_id}){
   const {register,handleSubmit,formState:{errors},reset} = useForm();
   const {createOrUpdatePost} = useContext(PostsContext);
+  const { user } = useSession();
 
   const onSubmit=(data)=>{
-    console.log(JSON.stringify(data));
+    console.log(user);
+    const userId = user.id;
+    console.log(userId);
+    //controle tekst van de post
     const {description}=data;
-    createOrUpdatePost(description,groups_id);
+    createOrUpdatePost({description,groups_id,user_id:userId});
     reset();
   }
 

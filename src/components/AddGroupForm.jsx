@@ -8,7 +8,6 @@ export default function AddGroupForm( ){
   const { createOrUpdateGroup } = useContext(GroupsContext);
   
   const onSubmit=(data)=>{
-    console.log(JSON.stringify(data));
     const {name}=data;
     createOrUpdateGroup({name});
     reset();

@@ -36,22 +36,26 @@ export const PostsProvider=({
     },[]);
 
     useEffect(()=>{
-      if(authReady && posts?.length === 0) {
+      if(authReady) {
         refreshPosts();
+
       }
-    },[authReady,refreshPosts,posts]);
+    },[authReady,refreshPosts]);
 
     const createOrUpdatePost = useCallback(async ({
       id,
       description,
-      group_id
+      group_id,
+      user_id
     }) => {
       setError();
       setLoading(true);
       try {
         const changedPost = await postsApi.savePost({
+          id,
           description,
-          group_id
+          group_id,
+          user_id
         })
         await refreshPosts();
         return changedPost;

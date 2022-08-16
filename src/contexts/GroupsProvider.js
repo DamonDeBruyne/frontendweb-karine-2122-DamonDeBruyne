@@ -50,6 +50,7 @@ export const GroupsProvider=({
       setLoading(true);
       try {
         const changedGroup = await groupsApi.saveGroup({
+          id,
           name
         });
         await refreshGroups();
