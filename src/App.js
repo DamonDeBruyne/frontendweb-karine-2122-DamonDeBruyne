@@ -10,6 +10,7 @@ import PostPage from './pages/PostPage'
 import Login from './pages/Login';
 import { PostsProvider } from './contexts/PostsProvider';
 import NavMenu from './components/NavMenu';
+import Register from './pages/Register';
 
 function App() {
   return (
@@ -33,6 +34,9 @@ function App() {
 
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/register">
+              <Register />
             </Route>
 
           </Switch>
