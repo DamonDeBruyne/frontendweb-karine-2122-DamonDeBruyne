@@ -8,7 +8,7 @@ export const getAllPosts= async()=>{
 
 export const savePost=async({
       id,
-      groups_id,
+      group_id,
       description,
       user_id
 })=>{
@@ -16,7 +16,7 @@ export const savePost=async({
 		method: id ? 'put' : 'post',
 		url: `posts/${id ?? ''}`,
 		data: {
-      groups_id,
+      group_id,
       description,
       user_id
 		},

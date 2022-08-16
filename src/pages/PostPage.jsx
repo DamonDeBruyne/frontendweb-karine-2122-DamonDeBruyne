@@ -18,7 +18,7 @@ export default function PostPage(){
         <PostList groupsId={groupsId}/>
 
       <h1>New Post</h1>
-        <AddPostForm groupsId={groupsId} />
+        <AddPostForm group_id={groupsId} />
       </div>
   )
 }

@@ -4,7 +4,7 @@ import { useSession } from "../contexts/AuthProvider";
 import {PostsContext} from '../contexts/PostsProvider';
 
 
-export default function AddPostForm( {groups_id}){
+export default function AddPostForm( { group_id }){
   const {register,handleSubmit,formState:{errors},reset} = useForm();
   const {createOrUpdatePost} = useContext(PostsContext);
   const { user } = useSession();
@@ -15,7 +15,7 @@ export default function AddPostForm( {groups_id}){
     console.log(userId);
     //controle tekst van de post
     const {description}=data;
-    createOrUpdatePost({description,groups_id,user_id:userId});
+    createOrUpdatePost({description,group_id,user_id:userId});
     reset();
   }
 
