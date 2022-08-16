@@ -10,9 +10,7 @@ export default function AddPostForm( { group_id }){
   const { user } = useSession();
 
   const onSubmit=(data)=>{
-    console.log(user);
     const userId = user.id;
-    console.log(userId);
     //controle tekst van de post
     const {description}=data;
     createOrUpdatePost({description,group_id,user_id:userId});

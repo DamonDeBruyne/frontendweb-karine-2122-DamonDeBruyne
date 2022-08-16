@@ -50,7 +50,6 @@ export const PostsProvider=({
     }) => {
       setError();
       setLoading(true);
-      console.log("group_id:"+group_id)
       try {
         const changedPost = await postsApi.savePost({
           id,
