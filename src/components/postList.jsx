@@ -21,7 +21,7 @@ const Post = ({ user_name,description, post_date ,remove}) => {
           <div class="mr-2 min-w-max uppercase">{user_name}</div>
           <div class="flex flex-row min-w-max">{date.toLocaleDateString(undefined, options)} 
           {user.name===user_name?
-            <AiOutlineDelete onClick={remove}/>
+            <AiOutlineDelete  class="cursor-pointer" onClick={remove}/>
         :""}</div>
       </div>
       <div class="w-full">{description}</div>
