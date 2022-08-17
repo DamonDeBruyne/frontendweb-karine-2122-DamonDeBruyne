@@ -10,7 +10,8 @@ jobs:
 	build:
 		runs-on: ubuntu-latest
 		env:
-			REACT_APP_BACKEND_BASE_URL: https://damondebruyne-webservice-api.heroku.com/api/.
+			REACT_APP_BACKEND_BASE_URL: https://git.heroku.com/damondebruyne-webservice-api.git
+
 
 
 		steps:
