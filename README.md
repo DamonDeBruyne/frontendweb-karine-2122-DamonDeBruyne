@@ -1,3 +1,12 @@
+# Wat doet deze applicatie
+
+In deze applicatie kan met in groepen chatten aan de hand van het plaatsen van posts.
+Ook kunnen ze hun eigen posts verwijderen en als je admin bent kan je groepen verwijderen.
+
+## Extra technologie
+
+als extra technologie heb ik een externe api call gedaan waar gecontroleerd word op bad words. Dit gebruikt ik bij het maken van nieuwe posts.
+[API](https://apilayer.com/marketplace/bad_words-api).
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
