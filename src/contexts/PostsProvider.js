@@ -69,13 +69,11 @@ export const PostsProvider=({
       try {
         //controle text op bad words
         const response = await validateText(description);
-        console.log(response);
         const {bad_words_total,censored_content,content} = response;
-        const replacedcontent = censored_content.replace(/{/g,'*');
-        console.log(bad_words_total,censored_content,replacedcontent,content)
+
         const changedPost = await postsApi.savePost({
           id,
-          description:bad_words_total>0?replacedcontent:content,
+          description:bad_words_total>0?censored_content:content,
           group_id,
           user_id
         })

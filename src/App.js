@@ -14,36 +14,36 @@ import Register from './pages/Register';
 
 function App() {
   return (
-    <AuthProvider>
-      <PostsProvider>
-        <GroupsProvider>
-            <NavMenu/>
-          <Switch>
+      <AuthProvider>
+        <PostsProvider>
+          <GroupsProvider>
+              <NavMenu />
+            <Switch>
 
-            <Route path='/' exact>
-              <Redirect to='/groups'/>
-            </Route>
+              <Route path='/' exact>
+                <Redirect to='/groups'/>
+              </Route>
 
-            <PrivateRoute path="/groups" exact>
-              <GroupPage/>
-            </PrivateRoute>
+              <PrivateRoute path="/groups" exact>
+                <GroupPage/>
+              </PrivateRoute>
 
-            <PrivateRoute path="/posts/:groupsId" exact>
-              <PostPage/>
-            </PrivateRoute>
+              <PrivateRoute path="/posts/:groupsId" exact>
+                <PostPage/>
+              </PrivateRoute>
 
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/register">
+                <Register />
+              </Route>
 
-          </Switch>
+            </Switch>
 
-        </GroupsProvider>
-      </PostsProvider>
-    </AuthProvider> 
+          </GroupsProvider>
+        </PostsProvider>
+      </AuthProvider>
   );
 }
 

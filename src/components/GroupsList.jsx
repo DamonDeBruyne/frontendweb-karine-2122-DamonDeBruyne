@@ -9,7 +9,7 @@ import { useSession } from "../contexts/AuthProvider";
 const Group = ({ id,name,remove }) => {
   const { hasRole } = useSession();
   return (
-      <div class="cursor-pointer">
+      <div class="cursor-pointer flex flex-row space-x-4 my-2">
         <Link to={`posts/${id}`}> {name}</Link>
         {hasRole('admin')?
         <AiOutlineDelete onClick={remove}/>
@@ -29,7 +29,7 @@ export default function GroupsList( ) {
   if (!groups) return <span className="flex-1">There are no groups</span>;
 
   return (
-    <div className='border'>
+    <div>
       <div>
         {groups
             .sort((a, b) =>

@@ -6,27 +6,25 @@ import { AiOutlineDelete } from "react-icons/ai";
 
 const Post = ({ user_name,description, post_date ,remove}) => {
   const { user } = useSession();
- /*  const options = {
+  const date = new Date(post_date);
+   const options = {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
     hour: "numeric",
     minute: "numeric",
-  }; */
+  }; 
   return (
-    <div className="border">
-      <table>
-        <tr>
-          <td>{user_name}</td>
-          {/* <td>{post_date.toLocaleDateString(undefined, options)}</td> */}
-          <td>{post_date}</td>
+    <div class="w-96 my-3">
+      <div class="flex ..." >
+          <div class="mr-2 min-w-max">{user_name}</div>
+          <div class="flex flex-row min-w-max">{date.toLocaleDateString(undefined, options)} 
           {user.name===user_name?
             <AiOutlineDelete onClick={remove}/>
-        :""}
-        </tr>
-        <tr aria-rowspan={2}>{description}</tr>
-      </table>
+        :""}</div>
+      </div>
+      <div class="w-full">{description}</div>
     </div>
   );
 };
@@ -42,10 +40,13 @@ export default function PostList({groupsId}) {
 
   if (loading) return <h1>Loading...</h1>;
   if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>
-  if (!posts) return <span className="flex-1">There are no posts </span>;
+  if (!posts) return <span class="flex-1">There are no posts </span>;
   return (
-    <div className="border">
-      {filteredPosts
+    <div>
+      
+      {filteredPosts.length===0
+      ?<span class="flex-1 ">There are no posts </span>
+      :filteredPosts
         .sort((a, b) =>
           a.post_date - b.post_date
         )

@@ -1,12 +1,17 @@
 import GroupsList from '../components/GroupsList';
 import AddGroupForm from '../components/AddGroupForm';
+import '../index.css';
 
 export default function GroupPage(){
   return(
-    <div className="border">
-      <h1>Groups</h1>
+    <div class="mx-8" >
+
+      <h1 class="text-xl mx-8 my-8">Groups</h1>
       <GroupsList/>
-      <h1>New Group</h1>
+      
+      <hr />
+
+      <h1 class="text-xl mx-8 my-8">New Group</h1>
       <AddGroupForm/>
     </div>
   )

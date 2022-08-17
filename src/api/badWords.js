@@ -15,11 +15,9 @@ var requestOptions = {
   body: raw
 };
 
-const validation = await fetch("https://api.apilayer.com/bad_words?censor_character={censor_character}", requestOptions)
+const validation = await fetch("https://api.apilayer.com/bad_words?censor_character=*", requestOptions)
   .then(response => response.json())
-  .then(result => {
-    console.log(result);
-    return result})
+  .then(result => {return result})
   .catch(error => {return error});
 return validation;
 };
