@@ -22,15 +22,16 @@ export default function AddPostForm( { group_id }){
       <div >
         <label htmlFor='description'>Text</label>
         <textarea
+        data-cy="description_input"
         class="rounded-md scroll-smooth w-80 h-48 resize-none"
         placeholder='posttext' 
         id='description' 
         {...register('description',
           {required:'text is required',minLength:{value:5,message:'Min length is 5'}})} />
-           {errors.description && <p class="text-red-500">{errors.description.message}</p>}
+           {errors.description && <p data-cy="error" class="text-red-500">{errors.description.message}</p>}
       </div>
       <div>
-        <button class="ml-0" type='submit'>Save</button>
+        <button data-cy="submit_post" class="ml-0" type='submit'>Save</button>
       </div> 
     </div>
   </form>

@@ -19,17 +19,18 @@ export default function AddGroupForm( ){
       <div >
         <div>
           <label htmlFor='name'>New groupname</label>
-          <input 
+          <input
+          data-cy="name_input" 
           class="w-80 mb-2"
           type='text' 
           placeholder='name' 
           id='name' 
           {...register('name',
           {required:'name is required',minLength:{value:3,message:'Min length is 3'}})} />
-           {errors.name && <p class="text-red-500">{errors.name.message}</p>}
+           {errors.name && <p data-cy="error" class="text-red-500">{errors.name.message}</p>}
         </div>
           <div>
-            <button class="ml-0" type='submit'>Save</button>
+            <button data-cy="submit_group" class="ml-0" type='submit'>Save</button>
           </div>
         </div>
     </form>

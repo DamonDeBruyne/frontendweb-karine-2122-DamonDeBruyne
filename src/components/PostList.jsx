@@ -16,15 +16,15 @@ const Post = ({ user_name,description, post_date ,remove}) => {
     minute: "numeric",
   }; 
   return (
-    <div class="w-96 my-3">
+    <div data-cy="post" class="w-96 my-3">
       <div class="flex ..." >
-          <div class="mr-2 min-w-max uppercase">{user_name}</div>
-          <div class="flex flex-row min-w-max">{date.toLocaleDateString(undefined, options)} 
+          <div data-cy="post_name" class="mr-2 min-w-max uppercase">{user_name}</div>
+          <div data-cy="post_date" class="flex flex-row min-w-max">{date.toLocaleDateString(undefined, options)} 
           {user.name===user_name?
-            <AiOutlineDelete  class="cursor-pointer" onClick={remove}/>
+            <AiOutlineDelete data-cy="post_remove_btn" class="cursor-pointer" onClick={remove}/>
         :""}</div>
       </div>
-      <div class="w-full">{description}</div>
+      <div data-cy="post_description" class="w-full">{description}</div>
     </div>
   );
 };
@@ -38,7 +38,7 @@ export default function PostList({groupsId}) {
     });
   }, [posts, groupsId]);
 
-  if (loading) return <h1>Loading...</h1>;
+  if (loading) return <h1 data-cy="loading">Loading...</h1>;
   if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>
   if (!posts) return <span class="flex-1">There are no posts </span>;
   return (

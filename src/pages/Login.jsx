@@ -56,6 +56,7 @@ export default function Login() {
             ) : null
           }
           <LabelInput
+            data-cy="email_input"
             label="email"
             type="text"
             defaultValue=""
@@ -63,13 +64,14 @@ export default function Login() {
             validation={validationRules.email} />
 
           <LabelInput
+            data-cy="password_input"
             label="password"
             type="password"
             defaultValue=""
             validation={validationRules.password} />
 
           <div className="flex flex-row justify-end">
-            <button type="submit" disabled={loading} className="disabled:opacity-50">
+            <button data-cy="submit_btn" type="submit" disabled={loading} className="disabled:opacity-50">
               Sign in
             </button>
 

@@ -17,6 +17,7 @@ function App() {
       <AuthProvider>
         <PostsProvider>
           <GroupsProvider>
+            
               <NavMenu />
             <Switch>
 
