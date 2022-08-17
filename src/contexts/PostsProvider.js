@@ -7,6 +7,7 @@ import {
   useMemo
 } from 'react';
 import * as postsApi from "../api/posts";
+import * as badWordsApi from "../api/badWords";
 import { useSession } from './AuthProvider';
 
 export const PostsContext = createContext();
@@ -42,6 +43,21 @@ export const PostsProvider=({
       }
     },[authReady,refreshPosts]);
 
+    const validateText = useCallback(async(text)=>{
+      setError();
+      setLoading(true);
+      try {
+        const data = await badWordsApi.validateText({text
+        })
+        return data;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      } finally {
+        setLoading(false)
+      }
+    },[]);
+
     const createOrUpdatePost = useCallback(async ({
       id,
       description,
@@ -51,9 +67,15 @@ export const PostsProvider=({
       setError();
       setLoading(true);
       try {
+        //controle text op bad words
+        const response = await validateText(description);
+        console.log(response);
+        const {bad_words_total,censored_content,content} = response;
+        const replacedcontent = censored_content.replace(/{/g,'*');
+        console.log(bad_words_total,censored_content,replacedcontent,content)
         const changedPost = await postsApi.savePost({
           id,
-          description,
+          description:bad_words_total>0?replacedcontent:content,
           group_id,
           user_id
         })
@@ -65,7 +87,7 @@ export const PostsProvider=({
       } finally {
         setLoading(false)
       }
-    }, [refreshPosts]);
+    }, [refreshPosts,validateText]);
 
     const deletePost = useCallback(async (id) => {
       setLoading(true);
@@ -81,6 +103,8 @@ export const PostsProvider=({
       }
     }, [refreshPosts]);
 
+  
+
     const value = useMemo(() => ({
       currentPost,
       setCurrentPost,
@@ -89,6 +113,7 @@ export const PostsProvider=({
       loading,
       deletePost,
       createOrUpdatePost,
+      
     }), [posts, error, loading, setCurrentPost, deletePost, currentPost, createOrUpdatePost])
   
     return ( 

@@ -11,7 +11,6 @@ export default function AddPostForm( { group_id }){
 
   const onSubmit=(data)=>{
     const userId = user.id;
-    //controle tekst van de post
     const {description}=data;
     createOrUpdatePost({description,group_id,user_id:userId});
     reset();

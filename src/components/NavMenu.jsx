@@ -18,8 +18,9 @@ const NavItem = ({
 );
 
 export default function NavMenu() {
-  const { isAuthed } = useSession();
+  const { isAuthed,user } = useSession();
   const logout = useLogout();
+  const { name }=user?user:"";
 
   const handleLogout = useCallback(() => {
     logout();
@@ -37,6 +38,7 @@ export default function NavMenu() {
             </>
           ) : (
             <>
+              <h2>{name}</h2>
               <button onClick={handleLogout}>
                 Sign out
               </button>
