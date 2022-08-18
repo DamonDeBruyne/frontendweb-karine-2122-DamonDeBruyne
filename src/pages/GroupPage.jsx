@@ -2,6 +2,7 @@ import GroupsList from '../components/GroupsList';
 import AddGroupForm from '../components/AddGroupForm';
 import '../index.css';
 
+
 export default function GroupPage(){
   return(
     <div class="mx-8" >
