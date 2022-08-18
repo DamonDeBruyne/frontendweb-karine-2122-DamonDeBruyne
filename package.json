@@ -2,6 +2,7 @@
   "name": "socialmedia",
   "version": "0.1.0",
   "private": true,
+  "homepage":"https://DamonDeBruyne.github.io/frontendweb-karine-2122-DamonDeBruyne/",
   "dependencies": {
     "@craco/craco": "^6.4.5",
     "@react-icons/all-files": "^4.1.0",
